@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Will You Be My Galentine?</title>
-    <!-- Google Fonts for that cute aesthetic -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
     <style>
-        /* --- COLOR PALETTE & VARIABLES --- */
+        /* --- COLOR PALETTE --- */
         :root {
             --pink-primary: #FFADCB;
             --pink-dark: #FF85B3;
@@ -17,13 +17,8 @@
             --white: #ffffff;
         }
 
-        /* --- RESET & GLOBAL STYLES --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
+        /* --- GLOBAL STYLES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 
         body {
             font-family: 'Quicksand', sans-serif;
@@ -33,10 +28,7 @@
             text-align: center;
         }
 
-        h1, h2 {
-            font-family: 'Pacifico', cursive;
-            color: var(--pink-dark);
-        }
+        h1, h2 { font-family: 'Pacifico', cursive; color: var(--pink-dark); }
 
         section {
             min-height: 100vh;
@@ -48,15 +40,11 @@
             position: relative;
         }
 
-        /* --- BACKGROUND ANIMATION (Floating Hearts) --- */
+        /* --- BACKGROUND ANIMATION --- */
         .heart-bg {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: -1;
         }
 
         .floating-heart {
@@ -73,18 +61,28 @@
             100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
 
-        /* --- LANDING SECTION --- */
-        .landing h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            animation: fadeIn 2s ease-in;
+        /* --- MUSIC CONTROL --- */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--white);
+            border: 2px solid var(--pink-primary);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            font-size: 20px;
         }
 
-        .landing p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            font-style: italic;
-        }
+        /* --- LANDING SECTION --- */
+        .landing h1 { font-size: 3.5rem; margin-bottom: 1rem; animation: fadeIn 2s ease-in; }
+        .landing p { font-size: 1.2rem; margin-bottom: 2rem; font-style: italic; }
 
         .btn-start {
             background-color: var(--pink-primary);
@@ -95,12 +93,12 @@
             font-weight: bold;
             box-shadow: 0 4px 15px rgba(255, 173, 203, 0.4);
             transition: transform 0.3s;
+            border: none;
+            cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
         }
 
-        .btn-start:hover {
-            transform: scale(1.1);
-            background-color: var(--pink-dark);
-        }
+        .btn-start:hover { transform: scale(1.1); background-color: var(--pink-dark); }
 
         /* --- MEMORY SECTION --- */
         .memory-container {
@@ -110,10 +108,10 @@
             padding: 40px 20px;
             width: 100%;
             max-width: 1000px;
-            scrollbar-width: none; /* Hide scrollbar Firefox */
+            scrollbar-width: none;
         }
 
-        .memory-container::-webkit-scrollbar { display: none; } /* Hide scrollbar Chrome/Safari */
+        .memory-container::-webkit-scrollbar { display: none; }
 
         .memory-card {
             min-width: 250px;
@@ -125,15 +123,8 @@
             border: 2px solid var(--lavender);
         }
 
-        .memory-card:hover {
-            transform: translateY(-10px) rotate(2deg);
-        }
-
-        .memory-card .emoji {
-            font-size: 3rem;
-            display: block;
-            margin-bottom: 10px;
-        }
+        .memory-card:hover { transform: translateY(-10px) rotate(2deg); }
+        .memory-card .emoji { font-size: 3rem; display: block; margin-bottom: 10px; }
 
         /* --- THE BIG QUESTION SECTION --- */
         .question-box {
@@ -151,7 +142,7 @@
             display: flex;
             justify-content: center;
             gap: 20px;
-            height: 60px; /* Fixed height to prevent layout shift */
+            height: 60px;
             align-items: center;
         }
 
@@ -181,39 +172,37 @@
 
         /* --- CELEBRATION SCREEN --- */
         #celebration {
-            display: none; /* Hidden by default */
+            display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: var(--cream);
             z-index: 100;
             text-align: center;
         }
 
-        .confetti-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-
-        /* --- RESPONSIVENESS --- */
-        @media (max-width: 600px) {
-            .landing h1 { font-size: 2.5rem; }
-            .memory-container { padding: 20px; }
-        }
+        .confetti-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        @media (max-width: 600px) {
+            .landing h1 { font-size: 2.5rem; }
+        }
     </style>
 </head>
 <body>
+
+    <!-- Background Music -->
+    <!-- Using a high-quality instrumental/audio link for 'I Like Me Better' -->
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        <!-- Note: Replace the URL above with a direct MP3 link to Lauv if you have one. 
+             Most browsers block direct YouTube MP3 links, so a hosted MP3 is best. -->
+    </audio>
+
+    <div class="music-control" id="musicToggle" onclick="toggleMusic()">🎵</div>
 
     <!-- Background Decoration -->
     <div class="heart-bg" id="heartBg"></div>
@@ -221,15 +210,14 @@
     <!-- Section 1: Landing -->
     <section class="landing">
         <h1>Will you be my Galentine?</h1>
-        <p>Because life is better with my babygurls. ✨</p>
-        <a href="#memories" class="btn-start">Start Here 💖</a>
+        <p>Because life is better with my girls. ✨</p>
+        <button onclick="startExperience()" class="btn-start">Start Here 💖</button>
     </section>
 
     <!-- Section 2: Memories -->
     <section id="memories">
         <h2 style="margin-bottom: 30px;">Why I love our friendship...</h2>
         <div class="memory-container">
-            <!-- Edit these cards to customize your memories! -->
             <div class="memory-card">
                 <span class="emoji">😂</span>
                 <h3>Chaotic Laughs</h3>
@@ -242,8 +230,8 @@
             </div>
             <div class="memory-card">
                 <span class="emoji">🚗</span>
-                <h3>Hearing Me Rant</h3>
-                <p>Those mindless talks about</p>
+                <h3>Unplanned Adventures</h3>
+                <p>Every road trip and "let's just go here" moment.</p>
             </div>
             <div class="memory-card">
                 <span class="emoji">🥂</span>
@@ -251,15 +239,13 @@
                 <p>Being each other's biggest hype girls, always.</p>
             </div>
         </div>
-        <a href="#question" class="btn-start" style="margin-top: 40px; background: var(--lavender); color: var(--text-color);">One more thing...</a>
+        <a href="#question" class="btn-start" style="margin-top: 40px; background: var(--lavender); color: var(--text-color); text-decoration: none;">One more thing...</a>
     </section>
 
     <!-- Section 3: The Question -->
     <section id="question">
         <div class="question-box">
             <h2>So... will you be my Galentine?</h2>
-            <p style="margin-top: 10px;">(It's an official invite!)</p>
-            
             <div class="btn-group">
                 <button class="btn-yes" onclick="showCelebration()">YES, obviously!</button>
                 <button class="btn-no" id="noBtn">No</button>
@@ -272,19 +258,38 @@
         <canvas class="confetti-canvas" id="confetti"></canvas>
         <h1 style="font-size: 4rem;">YAY! 🎉</h1>
         <h2>Galentine’s Date Confirmed.</h2>
-        <div style="margin-top: 30px; font-size: 1.2rem; line-height: 1.6;">
-            <p><strong>When:</strong> Feb 14th (or whenever we want!)</p>
+        <div style="margin-top: 30px; font-size: 1.2rem;">
+            <p><strong>When:</strong> Feb 14th</p>
             <p><strong>Where:</strong> Our favorite spot</p>
-            <p><strong>Dress Code:</strong> Cute & Comfy</p>
-            <p style="margin-top: 20px;">Can't wait to celebrate with you! 💖</p>
+            <p style="margin-top: 20px;">I like me better when I'm with you! 💖</p>
         </div>
     </section>
 
     <script>
-        // --- 1. GENERATE FLOATING HEARTS ---
+        const music = document.getElementById('bgMusic');
+        const musicToggle = document.getElementById('musicToggle');
+
+        // Function to start music and scroll
+        function startExperience() {
+            music.play();
+            musicToggle.innerText = '⏸️';
+            document.getElementById('memories').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Toggle music play/pause
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                musicToggle.innerText = '⏸️';
+            } else {
+                music.pause();
+                musicToggle.innerText = '🎵';
+            }
+        }
+
+        // Floating Hearts Logic
         const heartBg = document.getElementById('heartBg');
         const heartIcons = ['❤️', '💖', '✨', '🌸', '💕'];
-
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('floating-heart');
@@ -293,55 +298,44 @@
             heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
             heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
             heartBg.appendChild(heart);
-
             setTimeout(() => { heart.remove(); }, 10000);
         }
         setInterval(createHeart, 300);
 
-        // --- 2. THE EVASIVE "NO" BUTTON ---
+        // Evasive No Button
         const noBtn = document.getElementById('noBtn');
-
         noBtn.addEventListener('mouseover', () => {
-            // Calculate random position within the question box
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-            
             noBtn.style.position = 'fixed';
             noBtn.style.left = x + 'px';
             noBtn.style.top = y + 'px';
         });
 
-        // --- 3. CELEBRATION & CONFETTI ---
+        // Celebration Logic
         function showCelebration() {
             document.getElementById('celebration').style.display = 'flex';
             initConfetti();
         }
 
-        // Simple Canvas Confetti Effect
         function initConfetti() {
             const canvas = document.getElementById('confetti');
             const ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-
             let pieces = [];
-            const numberOfPieces = 150;
-            const colors = ['#FFADCB', '#FF85B3', '#D4C1EC', '#ffffff'];
-
             function update() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                if (pieces.length < numberOfPieces) {
+                if (pieces.length < 150) {
                     pieces.push({
                         x: Math.random() * canvas.width,
                         y: Math.random() * canvas.height - canvas.height,
                         rotation: Math.random() * 360,
                         size: Math.random() * 10 + 5,
-                        color: colors[Math.floor(Math.random() * colors.length)],
+                        color: ['#FFADCB', '#FF85B3', '#D4C1EC'][Math.floor(Math.random() * 3)],
                         speed: Math.random() * 3 + 2
                     });
                 }
-
                 pieces.forEach((p, i) => {
                     p.y += p.speed;
                     p.rotation += p.speed;
@@ -351,10 +345,8 @@
                     ctx.fillStyle = p.color;
                     ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
                     ctx.restore();
-
                     if (p.y > canvas.height) pieces[i].y = -20;
                 });
-
                 requestAnimationFrame(update);
             }
             update();
